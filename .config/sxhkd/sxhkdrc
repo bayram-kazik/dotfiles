@@ -184,3 +184,6 @@ super + ctrl + n
 
 super + ctrl + s
   notify-send -u low "Screenshot" "Screenshot taken" && sleep 0.5 && scrot -e 'mv $f ~/Pictures/Screenshots'
+
+super + ctrl + o
+  xkb-switch -n && notify-send -u low "Keyboard Layout" "$(xkb-switch -p)"

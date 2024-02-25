@@ -11,8 +11,7 @@ once redshift -l 25:25
 once dunst
 once greenclip daemon
 
-/home/$USER/.screenlayout/two-monitors.sh &
+~/.screenlayout/two-monitors.sh
+~/.local/bin/mouse_config.sh
+setxkbmap us,tr
 feh --bg-center /usr/share/backgrounds/gnome/morphogenesis-d.svg
-
-xinput set-prop "$(xinput list --name-only | grep -i touch)" "libinput Tapping Enabled" 1
-xinput set-prop "$(xinput list --name-only | grep -i touch)" "libinput Natural Scrolling Enabled" 1
