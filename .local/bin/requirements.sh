@@ -22,7 +22,7 @@ install_ohmyzsh() {
 }
 
 install_essentials() {
-  sudo pacman -S base-devel git neovim zsh kitty dunst picom rofi bspwm sxhkd curl redshift feh acpi networkmanager scrot ripgrep alsa-utils stow trash-cli gnome-backgrounds ttc-iosevka ttf-mononoki-nerd
+  sudo pacman -S base-devel git neovim zsh kitty dunst picom rofi bspwm sxhkd curl redshift feh acpi networkmanager scrot ripgrep alsa-utils stow trash-cli gnome-backgrounds ttc-iosevka ttf-mononoki-nerd xorg-xinit xorg-xinput xorg-xrandr xorg-xmodmap xorg-setxkbmap xclip
 }
 
 install_optionals() {
