@@ -1,0 +1,42 @@
+$bar-outer-padding: 8px;
+
+.bar {
+  padding-top: $bar-outer-padding;
+  padding-bottom: $bar-outer-padding;
+  font-family: "Cantarell", sans-serif;
+  font-size: 14;
+}
+
+.workspaces {
+  padding: 4px;
+}
+
+.focused-ws {
+  background-color: #7aa2f7;
+  color: #000;
+}
+
+.occupied-ws {
+  background-color: #246;
+  color: #bbb;
+}
+
+.inactive-ws {
+  color: #999;
+}
+
+.player {
+  font-size: 24px;
+  padding: 8px;
+  border-radius: 0;
+  color: #7aa2f7;
+}
+
+.sensors {
+  font-family: "Fira Code";
+  font-size: 12;
+}
+
+.clock {
+  font-size: 20px;
+}
