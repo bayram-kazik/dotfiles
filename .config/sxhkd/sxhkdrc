@@ -17,6 +17,9 @@ super + Escape
 super + shift + f
   firefox
 
+super + e
+  pcmanfm
+
 #
 # bspwm hotkeys
 #
@@ -183,7 +186,7 @@ super + ctrl + n
   notify-send -u low "Network Status" "$(nmcli -m multiline general | rg ' +' -r ' ')"
 
 super + ctrl + s
-  notify-send -u low "Screenshot" "Screenshot taken" && sleep 0.5 && scrot -e 'mv $f ~/Pictures/Screenshots'
+  flameshot gui
 
 super + ctrl + o
   xkb-switch -n && notify-send -u low "Keyboard Layout" "$(xkb-switch -p)"
