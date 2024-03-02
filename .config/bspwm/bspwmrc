@@ -4,6 +4,7 @@ pgrep -x sxhkd >/dev/null || sxhkd &
 
 bspc monitor '^1' -d I II III IV V
 
+bspc config focused_border_color '#00aaaa'
 bspc config border_width 1
 bspc config window_gap 4
 bspc config -m '^1' left_padding 40
