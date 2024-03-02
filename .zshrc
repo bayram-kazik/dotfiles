@@ -107,3 +107,4 @@ compinit
 
 # add /home/$USER/.local/bin to the Path
 export PATH=$PATH:/home/$USER/.local/bin
+eval "$(atuin init --disable-up-arrow zsh)"
