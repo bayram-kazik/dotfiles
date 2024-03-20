@@ -1,0 +1,60 @@
+(deflisten focused_ws `./scripts/bspc_sub_focused.sh`)
+(deflisten occupied_wss `./scripts/bspc_sub_occupieds.sh`)
+(defwidget workspace [label name]
+  (button :onclick "bspc desktop -f ${name}" :tooltip `Go to ${name}`
+    :class {focused_ws == name ? "focused-ws" : matches(name, occupied_wss) ? "occupied-ws" : "inactive-ws"}
+    label))
+(defwidget workspaces []
+  (box :class "workspaces" :orientation "v" :space-evenly false :valign "start" :spacing 5
+    (workspace :label "壹" :name 'I')
+    (workspace :label "貳" :name 'II')
+    (workspace :label "參" :name 'III')
+    (workspace :label "肆" :name 'IV')
+    (workspace :label "伍" :name 'V')
+    (box :height 10)
+    (workspace :label "陸" :name 'VI')
+    (workspace :label "柒" :name 'VII')
+    (workspace :label "捌" :name 'VIII')))
+
+(deflisten player_title `playerctl metadata xesam:title -F`)
+(deflisten player_status `playerctl status -F`)
+(defwidget player []
+  (button :class "player" :tooltip {player_title}
+    :onclick `playerctl play-pause`
+    {player_status == "Playing" ? "⏸" : "⏵"}))
+
+(defwidget ram [] (box :orientation "v" :tooltip {EWW_RAM} `${round(EWW_RAM.used_mem / 1024 / 1024 / 1024, 1)}G`))
+
+(defwidget upspeed [] (box :orientation "v" :tooltip {EWW_NET} `${round(EWW_NET.wlan0.NET_UP / 1024, 1)}↑`))
+(defwidget downspeed [] (box :orientation "v" :tooltip {EWW_NET} `${round(EWW_NET.wlan0.NET_DOWN / 1024, 1)}↓`))
+
+(defwidget temp [] (box :orientation "v" :tooltip {EWW_TEMPS} `${round((EWW_TEMPS.CORETEMP_CORE_0 + EWW_TEMPS.CORETEMP_CORE_1 + EWW_TEMPS.CORETEMP_CORE_2 + EWW_TEMPS.CORETEMP_CORE_3 + EWW_TEMPS.CORETEMP_CORE_4 + EWW_TEMPS.CORETEMP_CORE_5) / 6, 0)}°C`))
+
+(defwidget battery_icon [] (image :path "/usr/share/icons/Papirus/22x22/panel/battery-0${round(EWW_BATTERY.total_avg / 10, 0) * 10 }${ EWW_BATTERY.BAT0.status == 'Charging' ? '-charging' : ''}.svg" ))
+(defwidget battery [] (box :orientation "v" :tooltip {EWW_BATTERY} `${round(EWW_BATTERY.total_avg, 0)}%` ))
+
+(defwidget sensors [] (box :class "sensors" :orientation "v" :spacing 10 :space-evenly false (ram) (temp) (battery)))
+
+(defwidget date []
+  (box :class "date" :orientation "v" :valign "end" :halign "center"
+    :tooltip {formattime(EWW_TIME, "%a %b %d %I:%M:%S %p Z%Z %Y")}
+    {formattime(EWW_TIME, "%a")} {formattime(EWW_TIME, "%b")} {formattime(EWW_TIME, "%d")}))
+
+(defwidget clock []
+  (box :class "clock" :orientation "v" :valign "end"
+    :tooltip {formattime(EWW_TIME, "%a %b %d %I:%M:%S %p Z%Z %Y")}
+    {formattime(EWW_TIME, "%H")} {formattime(EWW_TIME, "%M")}))
+
+
+(defvar BAR_SPACING 20)
+(defwidget top [] (box :orientation "v" :valign "start" :spacing BAR_SPACING :space-evenly false (workspaces)))
+(defwidget middle [] (box :orientation "v" :valign "start" :spacing BAR_SPACING :space-evenly false (player)))
+(defwidget bottom [] (box :orientation "v" :valign "end" :spacing BAR_SPACING :space-evenly false (sensors) (date) (clock)))
+(defwidget bar [] (box :class "bar" :orientation "v" (top) (bottom)))
+
+(defwindow bar
+  :monitor 0
+  :windowtype "dock"
+  :geometry (geometry :x "0" :y "0" :width "46px" :height "100%" :anchor "left center")
+  :reserve (struts :side "left" :distance "0%")
+  (bar))

@@ -1,0 +1,9 @@
+[window]
+dynamic_padding = true
+
+[font]
+size = 8
+normal = { family = "Mononoki Nerd Font", style = "Regular" }
+
+[shell]
+program = "tmux"
