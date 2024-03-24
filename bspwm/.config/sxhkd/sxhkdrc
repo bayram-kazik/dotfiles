@@ -4,6 +4,9 @@
 
 # terminal emulator
 super + Return
+	alacritty -e tmux
+
+super + shift + Return
 	alacritty
 
 # program launcher
@@ -22,7 +25,7 @@ super + shift + f
   firefox
 
 super + e
-  pcmanfm
+  nautilus
 
 #
 # bspwm hotkeys
@@ -96,7 +99,7 @@ super + {o,i}
 
 # focus or send to the given desktop
 super + {_,shift + }{1-9,0}
-	bspc {desktop -f,node -d} '^{1-9,10}'
+	bspc {desktop -f,node -d} '^{1-9,10}' {,--follow}
 
 #
 # preselect

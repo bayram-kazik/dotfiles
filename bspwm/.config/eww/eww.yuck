@@ -1,3 +1,4 @@
+(defvar multi_monitor_class "disable-multi-monitor")
 (deflisten focused_ws `./scripts/bspc_sub_focused.sh`)
 (deflisten occupied_wss `./scripts/bspc_sub_occupieds.sh`)
 (defwidget workspace [label name]
@@ -5,16 +6,17 @@
     :class {focused_ws == name ? "focused-ws" : matches(name, occupied_wss) ? "occupied-ws" : "inactive-ws"}
     label))
 (defwidget workspaces []
-  (box :class "workspaces" :orientation "v" :space-evenly false :valign "start" :spacing 5
+  (box :class "workspaces" :orientation "v" :space-evenly false :valign "start" :halign "center" :spacing 5
     (workspace :label "壹" :name 'I')
     (workspace :label "貳" :name 'II')
     (workspace :label "參" :name 'III')
     (workspace :label "肆" :name 'IV')
     (workspace :label "伍" :name 'V')
-    (box :height 10)
-    (workspace :label "陸" :name 'VI')
-    (workspace :label "柒" :name 'VII')
-    (workspace :label "捌" :name 'VIII')))
+    (box :orientation "v" :space-evenly false :spacing 5 :valign "start" :halign "center" :class multi_monitor_class
+      (box :height 10)
+      (workspace :label "陸" :name 'VI')
+      (workspace :label "柒" :name 'VII')
+      (workspace :label "捌" :name 'VIII'))))
 
 (deflisten player_title `playerctl metadata xesam:title -F`)
 (deflisten player_status `playerctl status -F`)
