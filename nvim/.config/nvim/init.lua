@@ -18,6 +18,9 @@ vim.opt.number = true
 --  Experiment for yourself to see if you like it!
 vim.opt.relativenumber = false
 
+-- Set ruler
+-- vim.opt.colorcolumn = "90"
+
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = "a"
 
@@ -281,8 +284,8 @@ require("lazy").setup({
 				-- },
 				pickers = {
 					find_files = {
-						no_ignore = true,
-						hidden = true,
+						no_ignore = false,
+						hidden = false,
 					},
 				},
 				extensions = {
@@ -565,6 +568,8 @@ require("lazy").setup({
 				cpp = { "clang-format" },
 				-- Conform can also run multiple formatters sequentially
 				python = { "isort", "black" },
+				bash = { "shfmt" },
+				sh = { "shfmt" },
 				--
 				-- You can use a sub-list to tell conform to run *until* a formatter
 				-- is found.
@@ -679,6 +684,7 @@ require("lazy").setup({
 					{ name = "nvim_lsp" },
 					{ name = "luasnip" },
 					{ name = "path" },
+					{ name = "codeium" },
 				},
 			})
 		end,
@@ -857,7 +863,7 @@ require("lazy").setup({
 		name = "catppuccin",
 		priority = 1000,
 		init = function()
-			require("catppuccin").setup({ flavour = "mocha" })
+			require("catppuccin").setup({ flavour = "latte" })
 
 			vim.cmd.colorscheme("catppuccin")
 
@@ -867,6 +873,17 @@ require("lazy").setup({
 	},
 
 	{ "tpope/vim-abolish" },
+
+	{
+		"Exafunction/codeium.nvim",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"hrsh7th/nvim-cmp",
+		},
+		config = function()
+			require("codeium").setup({})
+		end,
+	},
 
 	-- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
 	-- init.lua. If you want these files, they are in the repository, so you can just download them and
