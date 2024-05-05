@@ -32,7 +32,7 @@ ZSH_THEME="afowler-minimal"
 # zstyle ':omz:update' frequency 13
 
 # Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS="true"
+DISABLE_MAGIC_FUNCTIONS="true"
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -99,7 +99,34 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias bat="bat --plain"
+alias open="xdg-open"
+alias sl="sl -a -e -l -w"
+
+checkbandwidth() {
+  traceout="$(mktemp -u)"
+  mkfifo "$traceout"
+  strace -o "$traceout" -e recv,recvfrom,recvmsg,send,sendto,sendmsg "$@" &
+  awk <"$traceout" '
+    BEGIN {rbytes = 0; sbytes = 0}
+    /^send/ { sbytes += $NF }
+    /^recv/ { rbytes += $NF }
+    END {
+      print "sent bytes:", sbytes;
+      print "received bytes:", rbytes
+    }'
+  rm "$traceout"
+}
 
 eval "$(atuin init zsh --disable-up-arrow)"
 
-fortune rules-of-acquisition | cowsay -f eyes -W 80 -n
+# fortune rules-of-acquisition | cowsay -f eyes -W 80 -n
+
+export PATH="$HOME/go/bin:$HOME/.local/bin:$PATH"
+
+eval `ssh-agent -s` &> /dev/null
+ssh-add &> /dev/null
+
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
