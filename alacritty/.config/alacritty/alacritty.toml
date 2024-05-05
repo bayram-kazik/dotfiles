@@ -1,6 +1,8 @@
+import = ["~/.config/alacritty/catppuccin/catppuccin-latte.toml"]
+
 [window]
 dynamic_padding = true
 
 [font]
-size = 8
-normal = { family = "Mononoki Nerd Font", style = "Regular" }
+size = 12
+normal = { family = "Iosevka Nerd Font", style = "Regular" }
