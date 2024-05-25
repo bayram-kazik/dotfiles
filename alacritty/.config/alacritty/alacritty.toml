@@ -1,0 +1,11 @@
+import = ['~/.config/alacritty/tokyonight/tokyonight.toml']
+
+[window]
+dynamic_padding = true
+
+[font]
+size = 12
+normal = { family = "ZedMono Nerd Font", style = "Regular" }
+
+[env]
+WINIT_X11_SCALE_FACTOR = "1"
