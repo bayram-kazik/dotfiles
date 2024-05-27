@@ -7,5 +7,8 @@ dynamic_padding = true
 size = 12
 normal = { family = "ZedMono Nerd Font", style = "Regular" }
 
+[scrolling]
+history = 100000
+
 [env]
 WINIT_X11_SCALE_FACTOR = "1"
