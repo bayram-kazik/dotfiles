@@ -6,12 +6,12 @@ case "$1" in
 	*) echo "Usage: $0 [-l|--light|-d|--dark]"; exit 0;;
 esac
 
-FONT_NAME="Fira Sans 10"
-MONOSPACE_FONT_NAME="Iosevka Nerd Font Mono Medium 11"
-CURSOR_THEME="elementary"
 CURSOR_SIZE=24
-PLASMA_CURSORTHEME="Breeze_Light"
+CURSOR_THEME="elementary"
+FONT_NAME="Noto Sans Condensed, Medium 10"
+MONOSPACE_FONT_NAME="Iosevka Nerd Font Mono Medium 11"
 PLASMA_CURSORSIZE=24
+PLASMA_CURSORTHEME="Breeze_Light"
 
 if [[ $THEME = "light" ]]; then
 	GTK_THEME="adw-gtk3"
@@ -21,6 +21,7 @@ if [[ $THEME = "light" ]]; then
 	PLASMA_COLORSCHEME="MateriaLight"
 	KONSOLE_COLORSCHEME="Catppuccin-Latte"
 	BAT_THEME="Catppuccin Latte"
+	NOTIF_ICON="/usr/share/icons/Papirus/48x48/status/weather-clear.svg"
 else
 	GTK_THEME="adw-gtk3-dark"
 	ICON_THEME="Papirus-Dark"
@@ -29,9 +30,11 @@ else
 	PLASMA_COLORSCHEME="MateriaDark"
 	KONSOLE_COLORSCHEME="Catppuccin-Mocha"
 	BAT_THEME="Catppuccin Mocha"
+	NOTIF_ICON="/usr/share/icons/Papirus/48x48/status/weather-clear-night.svg"
 fi
 
 autotheme_kde() {
+	notify-send --app-name="Darkman" --urgency=low --icon="$NOTIF_ICON" "Switching KDE Plasma system theme to $THEME mode"
 	plasma-apply-colorscheme "$PLASMA_COLORSCHEME"
 	/usr/lib/plasma-changeicons "$ICON_THEME"
 	plasma-apply-cursortheme "$PLASMA_CURSORTHEME" --size "$PLASMA_CURSORSIZE"
@@ -43,6 +46,7 @@ autotheme_kde() {
 }
 
 autotheme_other() {
+	notify-send --app-name="Darkman" --urgency=low --icon="$NOTIF_ICON" "Switching Linux system theme to $THEME mode"
 	gsettings set org.gnome.desktop.interface color-scheme "$LIGHT_DARK"
 	gsettings set org.gnome.desktop.interface gtk-theme "$GTK_THEME"
 	gsettings set org.gnome.desktop.interface icon-theme "$ICON_THEME"
